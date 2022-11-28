@@ -26,4 +26,4 @@ select oscarsnominated.title,
         0
     )
 from oscarsnominated
-    left join oscarswon on oscarsnominated.title = oscarswon.title
+    left join oscarswon on oscarsnominated.title = oscarswon.title;
