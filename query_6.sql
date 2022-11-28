@@ -19,7 +19,7 @@ where m.count = (
 					and result = 'won'
 				group by name
 			) as m
-	) 
+	);
 	
 --v2
 with T as (
@@ -36,4 +36,4 @@ from T
 where T.count = (
 		select max(T.count)
 		from T
-	)
+	);

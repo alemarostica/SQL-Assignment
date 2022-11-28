@@ -9,4 +9,4 @@ where movies.gross > 1000000
 			year
 			from current_date
 		) - 5
-	)
+	);

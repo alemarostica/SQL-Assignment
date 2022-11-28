@@ -16,4 +16,4 @@ where (
     or (
         select min(movies.budget)
         from movies
-    ) = movies.budget
+    ) = movies.budget;

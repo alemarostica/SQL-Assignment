@@ -21,4 +21,4 @@ select case
 from t,
     p
 group by t.count,
-    p.count
+    p.count;
