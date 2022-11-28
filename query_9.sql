@@ -8,4 +8,4 @@ with awardsandgross as(
 )
 select *
 from awardsandgross
-where profit < 0
+where profit < 0;
