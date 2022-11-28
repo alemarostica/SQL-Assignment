@@ -1,5 +1,6 @@
 with awardsandgross as(
     select movies.director,
+        movieawards.title,
         movies.gross - movies.budget as profit,
         movieawards.award
     from movies
@@ -8,4 +9,8 @@ with awardsandgross as(
 )
 select *
 from awardsandgross
-where profit < 0;
+where profit < 0
+group by awardsandgross.director,
+    awardsandgross.title,
+    awardsandgross.profit,
+    awardsandgross.award
