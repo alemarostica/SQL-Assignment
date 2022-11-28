@@ -3,7 +3,7 @@ select movies.title,
     movies.budget,
     case
         when movies.budget = (
-            select min(movies.budget)
+            select (min(movies.budget))::real
             from movies
         ) then 'least expensive'
         else 'most profitable'
