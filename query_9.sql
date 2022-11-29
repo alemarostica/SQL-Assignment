@@ -7,10 +7,7 @@ with awardsandgross as(
         right join movieawards on movies.title = movieawards.title
     where movieawards.award like '%Best Director'
 )
-select *
+select distinct director
 from awardsandgross
 where profit < 0
-group by awardsandgross.director,
-    awardsandgross.title,
-    awardsandgross.profit,
-    awardsandgross.award
+order by 1 asc
