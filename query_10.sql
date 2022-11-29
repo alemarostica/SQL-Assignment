@@ -36,4 +36,4 @@ from dir
 where dir.year in (
         select SpilAward.year
         from SpilAward
-    )
+    );
