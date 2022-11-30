@@ -1,14 +1,14 @@
-select distinct directors.director,
-	coalesce(min(movies.gross - movies.budget), -1),
-	coalesce(max(movies.gross - movies.budget), -1),
-	trunc(coalesce(avg(movies.gross), -1), 2)
-from directors
-	left join movies on directors.director = movies.director
-where directors.yearofbirth < (
-		extract(
-			year
-			from current_date
+SELECT DISTINCT DIRECTORS.DIRECTOR,
+	COALESCE(MIN(MOVIES.GROSS - MOVIES.BUDGET), -1),
+	COALESCE(MAX(MOVIES.GROSS - MOVIES.BUDGET), -1),
+	TRUNC(COALESCE(AVG(MOVIES.GROSS), -1), 2)
+FROM DIRECTORS
+	LEFT JOIN MOVIES ON DIRECTORS.DIRECTOR = MOVIES.DIRECTOR
+WHERE DIRECTORS.YEAROFBIRTH < (
+		EXTRACT(
+			YEAR
+			FROM CURRENT_DATE
 		) - 50
 	)
-group by directors.director
-order by 4 asc;
+GROUP BY DIRECTORS.DIRECTOR
+ORDER BY 4 ASC;

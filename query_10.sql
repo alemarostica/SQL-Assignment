@@ -1,39 +1,39 @@
-with SpilAward as (
-    select movies.director,
-        movieawards.year,
-        count(*) as num
-    from movieawards
-        left join movies on movieawards.title = movies.title
-    where (movies.director = 'Spielberg')
-        and (movieawards.result = 'won')
-    group by movies.director,
-        movieawards.year
-    having count(*) >= 3
+WITH SPILAWARD AS (
+    SELECT MOVIES.DIRECTOR,
+        MOVIEAWARDS.YEAR,
+        COUNT(*) AS NUM
+    FROM MOVIEAWARDS
+        LEFT JOIN MOVIES ON MOVIEAWARDS.TITLE = MOVIES.TITLE
+    WHERE (MOVIES.DIRECTOR = 'Spielberg')
+        AND (MOVIEAWARDS.RESULT = 'won')
+    GROUP BY MOVIES.DIRECTOR,
+        MOVIEAWARDS.YEAR
+    HAVING COUNT(*) >= 3
 ),
-dir as (
-    select movieawards.award as award,
-        directors.director as dir,
-        movieawards.year
-    from (
-            movieawards
-            left join movies on movieawards.title = movies.title
+DIR AS (
+    SELECT MOVIEAWARDS.AWARD AS AWARD,
+        DIRECTORS.DIRECTOR AS DIR,
+        MOVIEAWARDS.YEAR
+    FROM (
+            MOVIEAWARDS
+            LEFT JOIN MOVIES ON MOVIEAWARDS.TITLE = MOVIES.TITLE
         )
-        left join directors on movies.director = directors.director
-    where (movieawards.award like '%, Best Director')
-        and (movieawards.result = 'won')
-    union
-    select directorawards.award as award,
-        directors.director as dir,
-        directorawards.year
-    from directorawards
-        left join directors on directorawards.director = directors.director
-    where (directorawards.result = 'won')
-    order by 1
+        LEFT JOIN DIRECTORS ON MOVIES.DIRECTOR = DIRECTORS.DIRECTOR
+    WHERE (MOVIEAWARDS.AWARD LIKE '%, best director')
+        AND (MOVIEAWARDS.RESULT = 'won')
+    UNION
+    SELECT DIRECTORAWARDS.AWARD AS AWARD,
+        DIRECTORS.DIRECTOR AS DIR,
+        DIRECTORAWARDS.YEAR
+    FROM DIRECTORAWARDS
+        LEFT JOIN DIRECTORS ON DIRECTORAWARDS.DIRECTOR = DIRECTORS.DIRECTOR
+    WHERE (DIRECTORAWARDS.RESULT = 'won')
+    ORDER BY 1
 )
-select distinct dir.dir,
-    dir.year
-from dir
-where dir.year in (
-        select SpilAward.year
-        from SpilAward
+SELECT DISTINCT DIR.DIR,
+    DIR.YEAR
+FROM DIR
+WHERE DIR.YEAR IN (
+        SELECT SPILAWARD.YEAR
+        FROM SPILAWARD
     );

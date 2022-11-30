@@ -1,19 +1,19 @@
-select movies.title,
-    movies.gross - movies.budget as gross,
-    movies.budget,
-    case
-        when movies.budget = (
-            select (min(movies.budget))::real
-            from movies
-        ) then 'least expensive'
-        else 'most profitable'
-    end as feature
-from movies
-where (
-        select max(movies.gross - movies.budget)
-        from movies
-    ) = movies.gross - movies.budget
-    or (
-        select min(movies.budget)
-        from movies
-    ) = movies.budget;
+SELECT MOVIES.TITLE,
+    MOVIES.GROSS - MOVIES.BUDGET AS GROSS,
+    MOVIES.BUDGET,
+    CASE
+        WHEN MOVIES.BUDGET = (
+            SELECT (MIN(MOVIES.BUDGET))::REAL
+            FROM MOVIES
+        ) THEN 'least expensive'
+        ELSE 'most profitable'
+    END AS FEATURE
+FROM MOVIES
+WHERE (
+        SELECT MAX(MOVIES.GROSS - MOVIES.BUDGET)
+        FROM MOVIES
+    ) = MOVIES.GROSS - MOVIES.BUDGET
+    OR (
+        SELECT MIN(MOVIES.BUDGET)
+        FROM MOVIES
+    ) = MOVIES.BUDGET;

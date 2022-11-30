@@ -4,7 +4,7 @@ WITH OSCAR_WON AS (
             SELECT TITLE,
                 YEAR
             FROM MOVIEAWARDS
-            WHERE AWARD LIKE '%Oscar%'
+            WHERE AWARD LIKE '%oscar%'
                 AND YEAR < 1990
                 AND YEAR >= 1980
                 AND RESULT = 'won'

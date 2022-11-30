@@ -1,13 +1,13 @@
-with awardsandgross as(
-    select movies.director,
-        movieawards.title,
-        movies.gross - movies.budget as profit,
-        movieawards.award
-    from movies
-        right join movieawards on movies.title = movieawards.title
-    where movieawards.award like '%Best Director'
+WITH AWARDSANDGROSS AS(
+    SELECT MOVIES.DIRECTOR,
+        MOVIEAWARDS.TITLE,
+        MOVIES.GROSS - MOVIES.BUDGET AS PROFIT,
+        MOVIEAWARDS.AWARD
+    FROM MOVIES
+        RIGHT JOIN MOVIEAWARDS ON MOVIES.TITLE = MOVIEAWARDS.TITLE
+    WHERE MOVIEAWARDS.AWARD LIKE '%best director'
 )
-select distinct director
-from awardsandgross
-where profit < 0
-order by 1 asc
+SELECT DISTINCT DIRECTOR
+FROM AWARDSANDGROSS
+WHERE PROFIT < 0
+ORDER BY 1 ASC;

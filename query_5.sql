@@ -1,29 +1,29 @@
-with oscarswon as (
-    select movieawards.title,
-        movies.year,
-        count(movieawards.award)
-    from movieawards
-        left join movies on movies.title = movieawards.title
-    where movieawards.result = 'won'
-    group by movieawards.title,
-        movies.year
+WITH OSCARSWON AS (
+    SELECT MOVIEAWARDS.TITLE,
+        MOVIES.YEAR,
+        COUNT(MOVIEAWARDS.AWARD)
+    FROM MOVIEAWARDS
+        LEFT JOIN MOVIES ON MOVIES.TITLE = MOVIEAWARDS.TITLE
+    WHERE MOVIEAWARDS.RESULT = 'won'
+    GROUP BY MOVIEAWARDS.TITLE,
+        MOVIES.YEAR
 ),
-oscarsnominated as (
-    select movieawards.title,
-        movies.year,
-        count(movieawards.award)
-    from movieawards
-        left join movies on movies.title = movieawards.title
-    group by movieawards.title,
-        movies.year
+OSCARSNOMINATED AS (
+    SELECT MOVIEAWARDS.TITLE,
+        MOVIES.YEAR,
+        COUNT(MOVIEAWARDS.AWARD)
+    FROM MOVIEAWARDS
+        LEFT JOIN MOVIES ON MOVIES.TITLE = MOVIEAWARDS.TITLE
+    GROUP BY MOVIEAWARDS.TITLE,
+        MOVIES.YEAR
 )
-select oscarsnominated.title,
-    coalesce(
-        trunc(
-            ((oscarswon.count * 1.0) / oscarsnominated.count) * 100,
+SELECT OSCARSNOMINATED.TITLE,
+    COALESCE(
+        TRUNC(
+            ((OSCARSWON.COUNT * 1.0) / OSCARSNOMINATED.COUNT) * 100,
             2
         ),
         0
     )
-from oscarsnominated
-    left join oscarswon on oscarsnominated.title = oscarswon.title;
+FROM OSCARSNOMINATED
+    LEFT JOIN OSCARSWON ON OSCARSNOMINATED.TITLE = OSCARSWON.TITLE;

@@ -1,15 +1,15 @@
-with T as (
-	select movieawards.title as name,
-		count(movieawards.award)
-	from movieawards
-	where award like 'Oscar%'
-		and result = 'won'
-	group by name
+WITH T AS (
+	SELECT MOVIEAWARDS.TITLE AS NAME,
+		COUNT(MOVIEAWARDS.AWARD)
+	FROM MOVIEAWARDS
+	WHERE AWARD LIKE 'oscar%'
+		AND RESULT = 'won'
+	GROUP BY NAME
 )
-select T.name,
-	T.count
-from T
-where T.count = (
-		select max(T.count)
-		from T
+SELECT T.NAME,
+	T.COUNT
+FROM T
+WHERE T.COUNT = (
+		SELECT MAX(T.COUNT)
+		FROM T
 	);

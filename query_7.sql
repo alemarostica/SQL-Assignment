@@ -1,25 +1,25 @@
-with oscardirectors as (
-    select directorawards.*,
-        directors.yearofbirth
-    from directorawards
-        right join directors on directorawards.director = directors.director
-    where award like 'Oscar%'
-        and result = 'won'
+WITH OSCARDIRECTORS AS (
+    SELECT DIRECTORAWARDS.*,
+        DIRECTORS.YEAROFBIRTH
+    FROM DIRECTORAWARDS
+        RIGHT JOIN DIRECTORS ON DIRECTORAWARDS.DIRECTOR = DIRECTORS.DIRECTOR
+    WHERE AWARD LIKE 'oscar%'
+        AND RESULT = 'won'
 )
-select oscardirectors.director,
-    case
-        when oscardirectors.yearofbirth = (
-            select max(oscardirectors.yearofbirth)
-            from oscardirectors
-        ) then 'youngest'
-        else 'oldest'
-    end as feature
-from oscardirectors
-where (
-        select max(oscardirectors.yearofbirth)
-        from oscardirectors
-    ) = oscardirectors.yearofbirth
-    or (
-        select min(oscardirectors.yearofbirth)
-        from oscardirectors
-    ) = oscardirectors.yearofbirth;
+SELECT OSCARDIRECTORS.DIRECTOR,
+    CASE
+        WHEN OSCARDIRECTORS.YEAROFBIRTH = (
+            SELECT MAX(OSCARDIRECTORS.YEAROFBIRTH)
+            FROM OSCARDIRECTORS
+        ) THEN 'youngest'
+        ELSE 'oldest'
+    END AS FEATURE
+FROM OSCARDIRECTORS
+WHERE (
+        SELECT MAX(OSCARDIRECTORS.YEAROFBIRTH)
+        FROM OSCARDIRECTORS
+    ) = OSCARDIRECTORS.YEAROFBIRTH
+    OR (
+        SELECT MIN(OSCARDIRECTORS.YEAROFBIRTH)
+        FROM OSCARDIRECTORS
+    ) = OSCARDIRECTORS.YEAROFBIRTH;
