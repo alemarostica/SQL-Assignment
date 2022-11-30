@@ -1,4 +1,5 @@
 --v1.0
+
 WITH OSCAR_WON AS (
     SELECT count(*)
     FROM (
