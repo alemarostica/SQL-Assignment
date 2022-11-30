@@ -1,24 +1,27 @@
-with t as (
-    select distinct count(movieawards.award)
-    from movieawards
-        right join movies on movieawards.title = movies.title
-    where award like '%Oscar%'
-        and result = 'won'
-        and movies.year >= 1980
-        and movies.year < 1990
+WITH OSCAR_WON AS (
+    SELECT count(*)
+    FROM (
+            SELECT TITLE,
+                YEAR
+            FROM MOVIEAWARDS
+            WHERE AWARD LIKE '%Oscar%'
+                AND YEAR < 1990
+                AND YEAR >= 1980
+                AND RESULT = 'won'
+            GROUP BY TITLE,
+                YEAR
+        ) as foo
 ),
-p as (
-    select distinct count(movies.title)
-    from movies
-    where movies.year >= 1980
-        and movies.year < 1990
+ALL_MOVIES AS (
+    SELECT DISTINCT COUNT(*)
+    FROM MOVIES M
+    WHERE M.YEAR < 1990
+        AND M.YEAR >= 1980
 )
-select case
-        count(p.count)
-        when 0 then -1::real
-        else trunc(((t.count * 1.0) / p.count) * 100, 2)
-    end
-from t,
-    p
-group by t.count,
-    p.count;
+SELECT CASE
+        AM.COUNT
+        WHEN 0 THEN -1::REAL
+        ELSE TRUNC((OW.COUNT::DECIMAL / AM.COUNT::DECIMAL * 100), 2)
+    END
+FROM OSCAR_WON OW,
+    ALL_MOVIES AM;
