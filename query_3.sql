@@ -16,4 +16,5 @@ WHERE (
     OR (
         SELECT MIN(MOVIES.BUDGET)
         FROM MOVIES
-    ) = MOVIES.BUDGET;
+    ) = MOVIES.BUDGET
+ORDER BY 1, 2, 3, 4 ASC;
