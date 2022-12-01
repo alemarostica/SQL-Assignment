@@ -1,12 +1,13 @@
---v1.0
-SELECT CASE
+--v1.1
+SELECT MOVIES.TITLE,
+    MOVIES.YEAR,
+    CASE
         WHEN MOVIES.BUDGET = (
             SELECT (MIN(MOVIES.BUDGET))::REAL
             FROM MOVIES
         ) THEN 'least expensive'
         ELSE 'most profitable'
-    END AS FEATURE,
-    MOVIES.TITLE
+    END AS FEATURE
 FROM MOVIES
 WHERE (
         SELECT MAX(MOVIES.GROSS - MOVIES.BUDGET)
